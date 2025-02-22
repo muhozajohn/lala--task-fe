@@ -6,6 +6,8 @@ const PropertyCard = ({ property }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
 
+  const images = "https://res.cloudinary.com/dskrteajn/image/upload/v1706744948/ghcovgg7z1clwfwvucuk.jpg"
+
   const nextImage = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -42,11 +44,15 @@ const PropertyCard = ({ property }) => {
       <div className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         {/* Image with carousel controls */}
         <div className="relative aspect-w-4 aspect-h-3 overflow-hidden rounded-lg">
+
+          <div className="overflow-hidden h-full md:h-[250px]">
+
           <img
-            src={property.images[currentImageIndex]}
+            src={property.images[currentImageIndex] || images}
             alt={`${property.location} property`}
             className="h-full w-full object-cover transition-opacity duration-300"
-          />
+            />
+            </div>
           
           {/* Navigation arrows - only visible on hover */}
           {isHovering && (

@@ -12,6 +12,7 @@ import PropertyDetailsPage from "../pages/PropertyDetailsPage";
 import Login from "../pages/login";
 import Signup from "../pages/signup";
 import CartPage from "../pages/cart";
+import HostPropertiesPage from "../pages/HostPropertyPage";
 
 const AppRoutes = () => {
   return (
@@ -22,6 +23,7 @@ const AppRoutes = () => {
           <Route index element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/notification" element={<CartPage />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/properties/:id" element={<PropertyDetailsPage />} />
         </Route>
@@ -37,6 +39,7 @@ const AppRoutes = () => {
         >
           <Route index element={<Dashboard />} />
           <Route path="/dashboard/profile" element={<Profile />} />
+          <Route path="/dashboard/properties" element={<HostPropertiesPage />} />
         </Route>
 
         {/* Catch-All Route */}

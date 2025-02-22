@@ -23,8 +23,8 @@ const DashNav = () => {
 
   const nav = [
     {
-      name: "All users",
-      path: "/dashboard/accounts",
+      name: "All properties",
+      path: "/dashboard/properties",
       icon: <FaUsers className="w-5 h-5" />,
     }
   ];
