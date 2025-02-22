@@ -114,9 +114,9 @@ export const deleteUser = createAsyncThunk(
 // Get user's properties
 export const getUserProperties = createAsyncThunk(
   "users/getProperties",
-  async (id, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
-      const response = await loginService.getUserProperties(id);
+      const response = await loginService.getUserProperties();
       return response?.data?.data;
     } catch (error) {
       return rejectWithValue("Failed to get properties");
@@ -127,9 +127,9 @@ export const getUserProperties = createAsyncThunk(
 // Get user's bookings
 export const getUserBookings = createAsyncThunk(
   "users/getBookings",
-  async (id, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
-      const response = await loginService.getUserBookings(id);
+      const response = await loginService.getUserBookings();
       return response?.data?.data;
     } catch (error) {
       return rejectWithValue("Failed to get bookings");
