@@ -11,6 +11,7 @@ import Home from "../pages/home";
 import PropertyDetailsPage from "../pages/PropertyDetailsPage";
 import Login from "../pages/login";
 import Signup from "../pages/signup";
+import CartPage from "../pages/cart";
 
 const AppRoutes = () => {
   return (
@@ -20,6 +21,7 @@ const AppRoutes = () => {
         <Route path="/" element={<Homelayout />}>
           <Route index element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/notification" element={<CartPage />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/properties/:id" element={<PropertyDetailsPage />} />
         </Route>

@@ -42,13 +42,13 @@ class UserService {
   }
 
   // Get user's properties (for hosts)
-  getUserProperties(id) {
-    return http.get(`/users/${id}/properties`);
+  getUserProperties() {
+    return http.get(`/users/properties`);
   }
 
   // Get user's bookings (for renters)
-  getUserBookings(id) {
-    return http.get(`/users/${id}/bookings`);
+  getUserBookings() {
+    return http.get(`/users/bookings`);
   }
 }
 
