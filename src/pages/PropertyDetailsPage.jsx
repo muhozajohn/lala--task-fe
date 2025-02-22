@@ -5,6 +5,7 @@ import { IoMdArrowBack } from "react-icons/io";
 import { MdBedroomParent, MdBathroom } from "react-icons/md";
 import { BsPeopleFill } from "react-icons/bs";
 import { useSelector, useDispatch } from "react-redux";
+import BookingModal from "../components/BookingModal";
 import {
   selectCurrentProperty,
   selectPropertyLoading,
@@ -15,6 +16,7 @@ import {
 const PropertyDetailsPage = () => {
   const { id } = useParams();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
   const property = useSelector(selectCurrentProperty);
   const loading = useSelector(selectPropertyLoading);
@@ -87,8 +89,12 @@ const PropertyDetailsPage = () => {
     return (
       <div className="container mt-16 mx-auto px-4 py-8">
         <div className="bg-yellow-50 p-6 rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold text-yellow-700 mb-2">Property Not Found</h2>
-          <p className="text-yellow-600">The requested property could not be found.</p>
+          <h2 className="text-xl font-semibold text-yellow-700 mb-2">
+            Property Not Found
+          </h2>
+          <p className="text-yellow-600">
+            The requested property could not be found.
+          </p>
           <Link
             to="/"
             className="inline-flex items-center cursor-pointer mt-4 p-2 rounded-md bg-slate-100 text-blue-600 hover:text-blue-800"
@@ -179,7 +185,9 @@ const PropertyDetailsPage = () => {
               <h1 className="text-3xl font-bold text-gray-900">
                 {property.title || "Unnamed Property"}
               </h1>
-              <p className="text-gray-600 mt-1">{property.location || "Location not specified"}</p>
+              <p className="text-gray-600 mt-1">
+                {property.location || "Location not specified"}
+              </p>
             </div>
             <div className="text-right mt-4 md:mt-0">
               <p className="text-2xl font-bold text-blue-600">
@@ -196,7 +204,9 @@ const PropertyDetailsPage = () => {
                 {property.host.name ? property.host.name.charAt(0) : "?"}
               </div>
               <div className="ml-4">
-                <p className="font-medium">Hosted by {property.host.name || "Anonymous"}</p>
+                <p className="font-medium">
+                  Hosted by {property.host.name || "Anonymous"}
+                </p>
                 {property.host.createdAt && (
                   <p className="text-gray-500 text-sm">
                     Member since {formatDate(property.host.createdAt)}
@@ -239,7 +249,9 @@ const PropertyDetailsPage = () => {
                   <div key={index} className="flex items-center">
                     {getAmenityIcon(amenity)}
                     <span className="ml-2 capitalize">
-                      {amenity === "airConditioning" ? "Air Conditioning" : amenity}
+                      {amenity === "airConditioning"
+                        ? "Air Conditioning"
+                        : amenity}
                     </span>
                   </div>
                 ))}
@@ -263,12 +275,19 @@ const PropertyDetailsPage = () => {
 
           {/* Booking button */}
           <div className="mt-8">
-            <button 
+            <button
+              onClick={() => setIsBookingModalOpen(true)}
               className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
               aria-label="Book this property"
             >
               Book Now
             </button>
+
+            <BookingModal
+              property={property}
+              isOpen={isBookingModalOpen}
+              onClose={() => setIsBookingModalOpen(false)}
+            />
           </div>
         </div>
       </div>

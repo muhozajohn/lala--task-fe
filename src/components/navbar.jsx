@@ -21,9 +21,7 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
+
 
   useEffect(() => {
     if (isAuthenticated && isModalOpen) {

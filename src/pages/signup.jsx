@@ -1,6 +1,6 @@
 import React from "react";
 import Input from "../components/input";
-import { FaUser, FaLock, FaEnvelope, FaPhoneVolume } from "react-icons/fa";
+import { FaUser, FaLock, FaEnvelope } from "react-icons/fa";
 import { useFormik } from "formik";
 import { useSelector, useDispatch } from "react-redux";
 import Spinner from "../components/Spinner";
@@ -14,7 +14,7 @@ import {
   selectLoginError,
   makeSignup,
 } from "../redux/auth/authSlice";
-import { notifySuccess } from "../utils/notification";
+import { notifyError, notifySuccess } from "../utils/notification";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -24,11 +24,9 @@ const Signup = () => {
 
   const formik = useFormik({
     initialValues: {
-      fname: "",
-      lname: "",
+      name: "",
       email: "",
-      phone: "",
-      type: "",
+      role: "",
       password: "",
     },
     validate: validateAuth,
@@ -43,9 +41,11 @@ const Signup = () => {
         }, 3000);
       } else {
         if (resultAction.payload) {
+          notifyError(resultAction.payload)
           console.log("Signup Error:", resultAction.payload);
           formik.resetForm();
         } else {
+          notifyError(resultAction.payload)
           console.log("Signup Error:", resultAction.error);
           formik.resetForm();
         }
@@ -58,46 +58,30 @@ const Signup = () => {
   };
 
   return (
-    <form action="" className="w-1/2 mx-auto ">
+    <form action="" className="w-4/5 md:w-1/2 mx-auto ">
       {loginError && (
         <div className="text-sm text-red-800 font-normal mt-2">
           {loginError.message ? loginError.error : loginError}
         </div>
       )}
-      <div className="flex items-center gap-4">
-        <div className="flex flex-col w-full">
-          <Input
-            type="input"
-            placeholder="Firstname"
-            id="fname"
-            icon={<FaUser />}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            values={formik.values.fname}
-          />
-          {formik.touched.fname && formik.errors.fname ? (
-            <p className="text-sm text-red-800 font-normal">
-              {formik.errors.fname}
-            </p>
-          ) : null}
-        </div>
-        <div className="flex flex-col w-full">
-          <Input
-            type="input"
-            placeholder="Lastname"
-            id="lname"
-            icon={<FaUser />}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            values={formik.values.lname}
-          />
-          {formik.touched.lname && formik.errors.lname ? (
-            <p className="text-sm text-red-800 font-normal">
-              {formik.errors.lname}
-            </p>
-          ) : null}
-        </div>
+
+      <div className="flex flex-col w-full">
+        <Input
+          type="input"
+          placeholder="name"
+          id="name"
+          icon={<FaUser />}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          values={formik.values.name}
+        />
+        {formik.touched.name && formik.errors.name ? (
+          <p className="text-sm text-red-800 font-normal">
+            {formik.errors.name}
+          </p>
+        ) : null}
       </div>
+
       <div className="flex items-center gap-4">
         <div className="flex flex-col w-full">
           <Input
@@ -118,39 +102,23 @@ const Signup = () => {
         <div className="flex flex-col w-full">
           <select
             className="text-black p-2 mt-2  duration-100 outline-none justify-between flex items-center gap-6 px-2  w-full rounded-md font-normal border-2 group-hover:border-slate-300 "
-            id="type"
+            id="role"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            values={formik.values.type}
+            values={formik.values.role}
           >
             <option>Select User Type</option>
-            <option value="1">User</option>
-            <option value="2">Admin</option>
+            <option value="HOST">HOST</option>
+            <option value="RENTER">RENTER</option>
           </select>
-          {formik.touched.type && formik.errors.type ? (
+          {formik.touched.role && formik.errors.role ? (
             <p className="text-sm text-red-800 font-normal">
-              {formik.errors.type}
+              {formik.errors.role}
             </p>
           ) : null}
         </div>
       </div>
 
-      <div className="flex flex-col">
-        <Input
-          type="input"
-          placeholder="Phone"
-          id="phone"
-          icon={<FaPhoneVolume />}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          values={formik.values.phone}
-        />
-        {formik.touched.phone && formik.errors.phone ? (
-          <p className="text-sm text-red-800 font-normal">
-            {formik.errors.phone}
-          </p>
-        ) : null}
-      </div>
       <div className="flex flex-col">
         <Input
           type="input"
@@ -187,7 +155,8 @@ const Signup = () => {
         click={handleGoogleLogin}
         title={
           <>
-            <FcGoogle className="mr-2 font-bold text-base " /> Continue with Google
+            <FcGoogle className="mr-2 font-bold text-base " /> Continue with
+            Google
           </>
         }
         styles={`w-full !scale-100 mt-4  flex items-center justify-center`}
