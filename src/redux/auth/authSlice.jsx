@@ -24,7 +24,7 @@ export const makeLogin = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.error || "Invalid email or password"
+        error.response?.data?.message || "Invalid email or password"
       );
     }
   }
@@ -38,7 +38,7 @@ export const makeSignup = createAsyncThunk(
       const response = await loginService.createUser(userData);
       return response?.data?.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data?.error || "Signup failed");
+      return rejectWithValue(error.response?.data?.message  || "Signup failed");
     }
   }
 );
@@ -54,7 +54,7 @@ export const makeGoogleLogin = createAsyncThunk(
       }
       return response?.data?.data;
     } catch (error) {
-      return rejectWithValue(error.response?.error || "Google login failed");
+      return rejectWithValue(error.response?.data?.message  || "Google login failed");
     }
   }
 );

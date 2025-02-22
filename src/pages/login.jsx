@@ -57,13 +57,11 @@ const Login = () => {
     }
   };
 
-  const handleGoogleLoginError = () => {
-    console.log("Google login failed");
-  };
+
 
   return (
     <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
-    <form action="" className="w-1/2 mx-auto ">
+      <form action="" className="w-4/5 md:w-1/2 mx-auto ">
         {loginError && (
           <div className="text-sm text-red-800 font-normal mt-2">
             {loginError.message ? loginError.error : loginError}

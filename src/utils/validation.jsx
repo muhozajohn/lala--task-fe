@@ -25,17 +25,11 @@ export const validateAuth = (values) => {
     errors.password = "Password Required";
   }
 
-  if (!values.lname) {
-    errors.lname = "Lastname Required";
+  if (!values.name) {
+    errors.name = "Name Required";
   }
-  if (!values.phone) {
-    errors.phone = "Phone Required";
-  }
-  if (!values.fname) {
-    errors.fname = "Firstname Required";
-  }
-  if (!values.type || !values.type === "Select User Type") {
-    errors.type = "Role Required";
+  if (!values.role || !values.role === "Select User Type") {
+    errors.role = "Role Required";
   }
 
   return errors;
