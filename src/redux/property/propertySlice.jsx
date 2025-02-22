@@ -11,14 +11,21 @@ const initialState = {
   availability: null,
 };
 
-// Create a new property
 export const createProperty = createAsyncThunk(
   "properties/create",
   async (propertyData, { rejectWithValue }) => {
     try {
+      // Log the propertyData before sending
+      console.log('Sending property data:', propertyData);
+      
       const response = await propertyService.createProperty(propertyData);
+      
+      // Log the response
+      console.log('Server response:', response);
+      
       return response?.data?.data;
     } catch (error) {
+      console.error('Error in createProperty thunk:', error);
       return rejectWithValue(error.response?.data?.message || "Failed to create property");
     }
   }
